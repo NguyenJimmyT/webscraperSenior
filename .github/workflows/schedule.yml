@@ -1,0 +1,34 @@
+name: Run Parking Webscraper
+
+on:
+  schedule:
+    # Every 5 minutes from 7AM to 7PM Los Angeles time
+    # Converted to UTC: 14:00–23:55 + 00:00–01:55
+    - cron: '*/5 14-23 * * *'  # 7AM–3:55PM PDT
+    - cron: '*/5 0-1 * * *'    # 4PM–6:55PM PDT
+  workflow_dispatch:  # Allow manual trigger too
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run scraper
+        run: node webscraper.js
+
+      - name: Upload CSV output
+        uses: actions/upload-artifact@v3
+        with:
+          name: parking-data
+          path: parking_data.csv
