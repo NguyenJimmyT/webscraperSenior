@@ -28,7 +28,7 @@ jobs:
         run: node webscraper.js
 
       - name: Upload CSV output
-        uses: actions/upload-artifact@v3
+        uses: uses: actions/upload-artifact@5aaf6cce265554096f5f690d4872c76dbb6f1a9e
         with:
           name: parking-data
           path: parking_data.csv
