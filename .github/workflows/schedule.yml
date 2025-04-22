@@ -1,19 +1,17 @@
-name: Run Parking Webscraper
+name: Run Parking Scraper
 
 on:
   schedule:
-    # Every 5 minutes from 7AM to 7PM Los Angeles time
-    # Converted to UTC: 14:00–23:55 + 00:00–01:55
-    - cron: '*/5 14-23 * * *'  # 7AM–3:55PM PDT
-    - cron: '*/5 0-1 * * *'    # 4PM–6:55PM PDT
-  workflow_dispatch:  # Allow manual trigger too
+    - cron: '*/5 14-23 * * *'
+    - cron: '*/5 0-1 * * *'
+  workflow_dispatch:
 
 jobs:
   run-scraper:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -27,8 +25,12 @@ jobs:
       - name: Run scraper
         run: node webscraper.js
 
-      - name: Upload CSV output
-        uses: actions/upload-artifact@v2
-        with:
-          name: parking-data
-          path: parking_data.csv
+      - name: Commit CSV to repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add parking_data.csv
+          git commit -m "webscrape auto" || echo "Nothing to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
