@@ -6,6 +6,9 @@ on:
     - cron: '*/5 0-1 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   run-scraper:
     runs-on: ubuntu-latest
