@@ -1,4 +1,4 @@
-structure,level,total,available,lastUpdated,time
+structure,level,total,available,lastUpdated,dateScrape, timeScrape
 Nutwood Structure,Nutwood Level 1,402,283,4/22/2025 7:22:00 AM,04/22/2025, 07:22:01
 Nutwood Structure,Nutwood Level 2,530,468,4/22/2025 7:22:00 AM,04/22/2025, 07:22:01
 Nutwood Structure,Nutwood Level 3,550,529,4/22/2025 7:22:00 AM,04/22/2025, 07:22:01
